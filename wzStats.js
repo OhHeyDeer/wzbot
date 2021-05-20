@@ -34,10 +34,17 @@ const getWZRecentMatches = (callback) => {
 
                             let recentMatchDataSCOTT;
                             API.MWcombatwz(process.env.SCOTT, process.env.SCOTT_PLATFORM)
-                                .then((data2) => {
-                                    recentMatchDataSCOTT = data2.matches;
+                                .then((data3) => {
+                                    recentMatchDataSCOTT = data3.matches;
 
-                                    callback([recentMatchDataSOLNIT, recentMatchDataTIMMS, recentMatchDataOCHOA, recentMatchDataSCOTT]);
+                                    let recentMatchDataLARA;
+                                    API.MWcombatwz(process.env.LARA, process.env.LARA_PLATFORM)
+                                        .then((data4) => {
+                                            recentMatchDataLARA = data4.matches;
+
+                                            callback([recentMatchDataSOLNIT, recentMatchDataTIMMS, recentMatchDataOCHOA, recentMatchDataSCOTT, recentMatchDataLARA]);
+
+                                        });
 
                                 });
                         });
