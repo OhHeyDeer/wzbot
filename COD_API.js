@@ -3,7 +3,7 @@ require('dotenv').config();
 
 // Initialize the API
 
-const runWZStats = (callback) => {
+const requestData = (callback) => {
     API.login(process.env.USERNAME, process.env.PASSWORD)
         .then(() => { console.log('Complete'); getWZRecentMatches(callback)})
         .catch((err) => console.log("error", err));
@@ -42,7 +42,21 @@ const getWZRecentMatches = (callback) => {
                                         .then((data4) => {
                                             recentMatchDataLARA = data4.matches;
 
-                                            callback([recentMatchDataSOLNIT, recentMatchDataTIMMS, recentMatchDataOCHOA, recentMatchDataSCOTT, recentMatchDataLARA]);
+                                            // let recentMatchDataMIKE;
+                                            // API.MWcombatwz(process.env.MIKE, process.env.MIKE_PLATFORM)
+                                            //     .then((data5) => {
+                                            //         recentMatchDataMIKE = data5.matches;
+
+                                                    // let recentMatchDataKATZ;
+                                                    // API.MWcombatwz(process.env.KATZ, process.env.KATZ_PLATFORM)
+                                                    //     .then((data6) => {
+                                                    //         recentMatchDataKATZ = data6.matches;
+
+                                                            callback([recentMatchDataSOLNIT, recentMatchDataTIMMS, recentMatchDataOCHOA, recentMatchDataSCOTT, recentMatchDataLARA, /* recentMatchDataMIKE,   recentMatchDataKATZ */ ]);
+
+                                                        // });
+
+                                                // });
 
                                         });
 
@@ -57,4 +71,4 @@ const getWZRecentMatches = (callback) => {
 }
 
 
-module.exports = { runWZStats, getWZRecentMatches };
+module.exports = { requestData, getWZRecentMatches };
