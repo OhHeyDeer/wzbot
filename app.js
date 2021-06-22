@@ -9,8 +9,6 @@ let matchData = [];
 let oldData = [];
 let totalKills = [];
 let leaderboard = {};
-// const inputString = (prompt('Who is Playing today?')).split(' ');
-
 
 // Make a KillCount leaderboard that will update 
 
