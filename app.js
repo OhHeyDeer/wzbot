@@ -1,5 +1,7 @@
 const runWZStats = require('./COD_API').requestData;
 
+const createHTMLImage = require('./customWarzonePost');
+
 const Discord = require('discord.js');
 require('dotenv').config();
 
@@ -161,28 +163,37 @@ client.on('ready', () => {
 
             if (JSON.stringify(oldLeaderboard) !== JSON.stringify(leaderboard)) { // This is an issue? changed to 
                 console.log("Sending...");
-                const messageEmbed = new Discord.MessageEmbed()
-                    .setColor('#0099ff')
-                    .setTitle('Kill Leaderboard')
-                    .setDescription('This is a daily kill tracker for everyone on the server. Each day your kills reset to 0.\n(If your name is not listed I need to add you to the bot)')
-                    .setThumbnail('https://i.ytimg.com/vi/Ebmiv5hfNrg/maxresdefault.jpg')
-                    .addFields(
-                        { name: '---------- Todays Leader: ----------', value: '---------> ' + leaderboard[1].name + ' <---------' },
-                        { name: '\u200B', value: '\u200B' },
-                        { name: '1st: ' + leaderboard[1].name, value: leaderboard[1].kills },
-                        { name: '2nd: ' + leaderboard[2].name, value: leaderboard[2].kills },
-                        { name: '3rd: ' + leaderboard[3].name, value: leaderboard[3].kills },
-                        { name: '4th: ' + leaderboard[4].name, value: leaderboard[4].kills },
-                        { name: '5th: ' + leaderboard[5].name, value: leaderboard[5].kills },
-                    )
+
+                createHTMLImage(leaderboard)
+                    .then(data => generalChannel.send(new Discord.MessageAttachment(data)))
+                    .catch(err => console.log(err));
+
+
+                
+
+
+                // const messageEmbed = new Discord.MessageEmbed()
+                //     .setColor('#0099ff')
+                //     .setTitle('Kill Leaderboard')
+                //     .setDescription('This is a daily kill tracker for everyone on the server. Each day your kills reset to 0.\n(If your name is not listed I need to add you to the bot)')
+                //     .setThumbnail('https://i.ytimg.com/vi/Ebmiv5hfNrg/maxresdefault.jpg')
+                //     .addFields(
+                //         { name: '---------- Todays Leader: ----------', value: '---------> ' + leaderboard[1].name + ' <---------' },
+                //         { name: '\u200B', value: '\u200B' },
+                //         { name: '1st: ' + leaderboard[1].name, value: leaderboard[1].kills },
+                //         { name: '2nd: ' + leaderboard[2].name, value: leaderboard[2].kills },
+                //         { name: '3rd: ' + leaderboard[3].name, value: leaderboard[3].kills },
+                //         { name: '4th: ' + leaderboard[4].name, value: leaderboard[4].kills },
+                //         { name: '5th: ' + leaderboard[5].name, value: leaderboard[5].kills },
+                //     )
     
-                generalChannel.send(messageEmbed);
+                // generalChannel.send(messageEmbed);
             } else {
                 console.log('Not Sending...');
             }
         });
 
     
-    }, 180000); // Every 30 minutes (60,000 is ten minutes)
+    }, 60000); // Every 10 minutes (600,000 is ten minutes) * 3 would be thirty minutes
 
 })
